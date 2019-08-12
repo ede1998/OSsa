@@ -4,8 +4,8 @@
 #![test_runner(ossa::test_runner)]
 #![reexport_test_harness_main = "test_main"]
 
-use ossa::println;
 use core::panic::PanicInfo;
+use ossa::println;
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
