@@ -4,12 +4,16 @@ version = "0.1.0"
 authors = ["ede1998 <online@erik-hennig.me>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[test]]
+name = "should_panic"
+harness = false
 
 [dependencies]
 bootloader = "0.8"
 volatile = "0.2.6"
 spin = "0.5.1"
+x86_64 = "0.7.4"
+uart_16550 = "0.2.0"
 
 [dependencies.lazy_static]
 version = "1.3"
@@ -20,3 +24,11 @@ panic = "abort"
 
 [profile.release]
 panic = "abort"
+
+[package.metadata.bootimage]
+default-target = "x86_64-blog_os.json"
+test-args = [
+    "-device", "isa-debug-exit,iobase=0xf4,iosize=0x04", "-serial", "stdio",
+    "-display", "none"
+]
+test-success-exit-code = 33         # (0x10 << 1) | 1
